@@ -79,4 +79,29 @@ MWDB is widely used to manage malware sample repositories, but lacked a visual d
 > Developed for a university forensics project by: **Sarra Gharsallah**  
 > Timeline: **SPRING 2025**  
 > Based on original MWDB project by CERT-Polska ([mwdb.cert.pl](https://mwdb.cert.pl))
+🐳 How to Run (Docker)
+To build and run the MWDB development environment with the dashboard:
 
+### 🐳 How to Run (Docker)
+
+To build and run the MWDB development environment with the dashboard:
+
+```bash
+docker compose -f docker-compose-dev.yml build
+docker compose -f docker-compose-dev.yml up -d
+### 🌐 Accessing the MWDB Interface
+
+After the containers are up and running, open your browser and navigate to:
+http://localhost:8080
+
+Use the following default development credentials to log in:
+
+- **Username:** `admin`  
+- **Password:** `<provided at the beging>`
+
+---
+
+### 📈 Accessing the Dashboard
+
+Once logged in, access the dashboard directly via:
+http://localhost:8080/dashboard
