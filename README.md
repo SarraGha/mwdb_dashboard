@@ -76,7 +76,7 @@ MWDB is widely used to manage malware sample repositories, but lacked a visual d
 - ✅ **Backend API** `/api/stats/count_by_type` added via Flask to serve statistical data.
 - ✅ Fully integrated into MWDB's authentication and permission system.
 
-> Developed for a university forensics project by: **[Your Name]**  
-> Timeline: **June 2025**  
+> Developed for a university forensics project by: Sarra Gharsallah 
+> Timeline: **Spring 2025**  
 > Based on original MWDB project by CERT-Polska ([mwdb.cert.pl](https://mwdb.cert.pl))
 
