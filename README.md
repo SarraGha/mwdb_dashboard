@@ -55,3 +55,28 @@ For more information, read [LICENSE](LICENSE) file.
 In case of any questions regarding the license send an e-mail to info@cert.pl.
 
 ![Co-financed by the Connecting Europe Facility by of the European Union](https://www.cert.pl/uploads/2019/02/en_horizontal_cef_logo-e1550495232540.png)
+
+
+---
+
+## 🧪 Student Project: P9. MWDB Dashboard
+
+As part of the **P9. Mwdb Dashboard** project, this customization of MWDB adds a new configurable dashboard to the platform, enabling users to better understand and analyze the characteristics of their collected malware dataset.
+
+### 🔍 Purpose
+
+MWDB is widely used to manage malware sample repositories, but lacked a visual dashboard for aggregated statistics. This project adds that functionality, aligned with the educational goal of extending MWDB’s frontend/backend architecture.
+
+### 📊 Key Additions
+
+- ✅ **New `/dashboard` route** with a user interface built using **React + Chart.js**.
+- ✅ **Dynamic charts** (e.g. bar graphs) to display:
+  - Malware file type distribution.
+  - (Extendable to show tag frequency, uploads over time, etc.)
+- ✅ **Backend API** `/api/stats/count_by_type` added via Flask to serve statistical data.
+- ✅ Fully integrated into MWDB's authentication and permission system.
+
+> Developed for a university forensics project by: **[Your Name]**  
+> Timeline: **June 2025**  
+> Based on original MWDB project by CERT-Polska ([mwdb.cert.pl](https://mwdb.cert.pl))
+
