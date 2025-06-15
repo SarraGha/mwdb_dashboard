@@ -415,3 +415,9 @@ with app.app_context():
 
 # Register blueprint
 api.register()
+
+
+############################### dashboard
+from mwdb.resources import stats
+app.register_blueprint(stats.bp)
+
