@@ -59,22 +59,22 @@ In case of any questions regarding the license send an e-mail to info@cert.pl.
 
 ---
 
-## 🧪 Student Project: P9. MWDB Dashboard
+## Student Project: P9. MWDB Dashboard
 
 As part of the **P9. Mwdb Dashboard** project, this customization of MWDB adds a new configurable dashboard to the platform, enabling users to better understand and analyze the characteristics of their collected malware dataset.
 
-### 🔍 Purpose
+### Purpose
 
 MWDB is widely used to manage malware sample repositories, but lacked a visual dashboard for aggregated statistics. This project adds that functionality, aligned with the educational goal of extending MWDB’s frontend/backend architecture.
 
-### 📊 Key Additions
+### Key Additions
 
-- ✅ **New `/dashboard` route** with a user interface built using **React + Chart.js**.
-- ✅ **Dynamic charts** (e.g. bar graphs) to display:
+- **New `/dashboard` route** with a user interface built using **React + Chart.js**.
+- **Dynamic charts** (e.g. bar graphs) to display:
   - Malware file type distribution.
   - (Extendable to show tag frequency, uploads over time, etc.)
-- ✅ **Backend API** `/api/stats/count_by_type` added via Flask to serve statistical data.
-- ✅ Fully integrated into MWDB's authentication and permission system.
+- **Backend API** `/api/stats/count_by_type` added via Flask to serve statistical data.
+- Fully integrated into MWDB's authentication and permission system.
 
 > Developed for a university forensics project by: **Sarra Gharsallah**  
 > Timeline: **SPRING 2025**  
@@ -82,14 +82,15 @@ MWDB is widely used to manage malware sample repositories, but lacked a visual d
 🐳 How to Run (Docker)
 To build and run the MWDB development environment with the dashboard:
 
-### 🐳 How to Run (Docker)
+### How to Run (Docker)
 
 To build and run the MWDB development environment with the dashboard:
 
 ```bash
 docker compose -f docker-compose-dev.yml build
 docker compose -f docker-compose-dev.yml up -d
-### 🌐 Accessing the MWDB Interface
+```
+### Accessing the MWDB Interface
 
 After the containers are up and running, open your browser and navigate to:
 http://localhost:8080
@@ -101,7 +102,14 @@ Use the following default development credentials to log in:
 
 ---
 
-### 📈 Accessing the Dashboard
+### Accessing the Dashboard
 
 Once logged in, access the dashboard directly via:
 http://localhost:8080/dashboard
+Alternatively, the dashboard is also accessible directly from the navigation bar within the MWDB interface.
+
+---
+### Notes on Development
+During development, a prototype was created using Streamlit, which allowed for faster and easier dashboard creation. However, to maintain full integration with the MWDB platform and its authentication system, the final solution uses a React + Chart.js interface embedded directly into the MWDB frontend.
+
+The Streamlit prototype code is still available in the dashboard folder for reference or further experimentation.

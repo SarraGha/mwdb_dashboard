@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState, useEffect } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 import {
     faFile,
@@ -26,7 +26,31 @@ export function Navigation() {
 
     const remote = useRemote();
     const remotePath = useRemotePath();
+
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const [allFileDetailsArray, setAllFileDetailsArray] = useState<any[]>([]);
+
+    // Fetch all file details on mount or when auth changes
+    useEffect(() => {
+        async function fetchFileDetails() {
+            if (!auth.isAuthenticated) {
+                setAllFileDetailsArray([]);
+                return;
+            }
+            try {
+                const apiUrl = `${remotePath || ""}/api/object`;
+                const res = await fetch(apiUrl);
+                if (!res.ok) throw new Error(`Error fetching files: ${res.statusText}`);
+                const data = await res.json();
+                setAllFileDetailsArray(data.objects || []);
+            } catch (error) {
+                console.error("Failed to fetch file details:", error);
+                setAllFileDetailsArray([]);
+            }
+        }
+        fetchFileDetails();
+    }, [auth.isAuthenticated, remotePath]);
+
     const navItems = config.isReady ? (
         <Extendable ident="navbar">
             {auth.isAuthenticated ? (
@@ -39,6 +63,16 @@ export function Navigation() {
                             />
                             Samples
                         </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link
+                          to="/dashboard"
+                          state={{ selectedFiles: allFileDetailsArray }}
+                          className="nav-link"
+                      >
+                        <FontAwesomeIcon className="navbar-icon" icon={faTable} />
+                        Dashboard
+                      </Link>
                     </li>
                     <li className="nav-item">
                         <Link className="nav-link" to={"/configs"}>
@@ -66,7 +100,7 @@ export function Navigation() {
                 []
             )}
             {auth.isAuthenticated ? (
-                <React.Fragment>
+                <>
                     <li className="nav-item">
                         <Link className="nav-link" to={"/search"}>
                             Search
@@ -78,7 +112,7 @@ export function Navigation() {
                             Statistics
                         </Link>
                     </li>
-                </React.Fragment>
+                </>
             ) : (
                 []
             )}
@@ -118,7 +152,7 @@ export function Navigation() {
     const remoteNavItems =
         config.isReady && auth.isAuthenticated ? (
             <Extendable ident="navbarAuthenticated">
-                <React.Fragment>
+                <>
                     <li className="nav-item">
                         <Link className="nav-link" to={`${remotePath}/`}>
                             <FontAwesomeIcon
@@ -151,7 +185,7 @@ export function Navigation() {
                             Search
                         </Link>
                     </li>
-                </React.Fragment>
+                </>
             </Extendable>
         ) : (
             []
@@ -184,20 +218,19 @@ export function Navigation() {
                     <ul className="navbar-nav">
                         <Extendable ident="navbarRight">
                             {auth.isAuthenticated ? (
-                                <React.Fragment>
+                                <>
                                     <RemoteDropdown />
                                     <li className="nav-item">
                                         <div className="btn-group">
                                             {remote ? (
                                                 <Link
-                                                    className="btn btn-outline-info
-                                                   "
+                                                    className="btn btn-outline-info"
                                                     to={"/"}
                                                 >
                                                     Local instance
                                                 </Link>
                                             ) : (
-                                                <React.Fragment>
+                                                <>
                                                     <Link
                                                         className="btn btn-outline-success profile-button"
                                                         to="/profile"
@@ -214,22 +247,15 @@ export function Navigation() {
                                                         cancelText="Logout only from MWDB"
                                                         confirmText={`Logout from MWDB and ${auth.user.provider}`}
                                                         onCancel={() => {
-                                                            setIsModalOpen(
-                                                                false
-                                                            );
+                                                            setIsModalOpen(false);
                                                             auth.logout();
                                                         }}
                                                         onRequestClose={() => {
-                                                            setIsModalOpen(
-                                                                false
-                                                            );
+                                                            setIsModalOpen(false);
                                                         }}
                                                         onConfirm={async () => {
-                                                            setIsModalOpen(
-                                                                false
-                                                            );
-                                                            let e =
-                                                                await auth.oAuthLogout();
+                                                            setIsModalOpen(false);
+                                                            let e = await auth.oAuthLogout();
                                                             auth.logout(e);
                                                         }}
                                                         buttonStyle="btn-danger"
@@ -242,25 +268,20 @@ export function Navigation() {
                                                         href="#logout"
                                                         onClick={(ev) => {
                                                             ev.preventDefault();
-                                                            if (
-                                                                !auth.user
-                                                                    .provider
-                                                            ) {
+                                                            if (!auth.user.provider) {
                                                                 auth.logout();
                                                             } else {
-                                                                setIsModalOpen(
-                                                                    true
-                                                                );
+                                                                setIsModalOpen(true);
                                                             }
                                                         }}
                                                     >
                                                         Logout
                                                     </a>
-                                                </React.Fragment>
+                                                </>
                                             )}
                                         </div>
                                     </li>
-                                </React.Fragment>
+                                </>
                             ) : (
                                 []
                             )}
